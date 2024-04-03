@@ -10,10 +10,10 @@ you can use django admin panel
 step to create super user
 1) python manage.py createsuperuser(username and password)
 
-** admin URL: htpp://{{domain}}/admin-->(for local url ex-->http://localhost:8000/admin)
+** admin URL: http://{{domain}}/admin-->(for local url ex-->http://localhost:8000/admin)
 after adding data into table
 To get Movie List:
-URL : htpp://{{domain}}/movies --->(for local url ex-->http://localhost:8000/movies)
+URL : http://{{domain}}/movies --->(for local url ex-->http://localhost:8000/movies)
 
 Due to lack of time. I have create a simple application.
 I have kept setting file as main configuration file.
