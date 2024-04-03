@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies App</title>
+    <style>
+        .container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #f2f2f2; /* Set table background color */
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: yellow; /* Set title background color */
+        }
+        .rating {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: center;
+        }
+        .rating > span {
+            display: inline-block;
+            position: relative;
+            width: 1.1em;
+        }
+        .rating > span:before {
+            content: "\2605";
+            position: absolute;
+            left: 0;
+            color: gold;
+        }
+        /* Center the title */
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: green;">Movies App</h1>
+
+    <form method="get">
+        {{ genre_filter_form.as_p }}
+        <button type="submit" style="color: green;">Filter</button>
+    </form>
+
+    <input type="text" id="searchInput" placeholder="Search by Title..." style="margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+
+    <hr>
+
+    <div class="container">
+        <table id="moviesTable">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Poster</th>
+                    <th>Genres</th>
+                    <th>Rating</th>
+                    <th>Year Release</th>
+                    <th>Metacritic Rating</th>
+                    <th>Runtime</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies %}
+                <tr class="movieRow">
+                    <td style="color: blue;">{{ movie.title }}</td>
+                    <td><img src="{{ movie.poster.url }}" alt="{{ movie.title }}" style="width: 50px;"></td>
+                    <td>{{ movie.genres }}</td>
+                    <td>
+                        <div class="rating">
+                            {% for i in "12345" %}
+                                {% if movie.rating|floatformat >= i %}
+                                    {% if movie.rating|floatformat < i|add:'0.5' %}
+                                        <span>&#x2605;</span>
+                                    {% else %}
+                                        <span style="width: 0.55em;">&#x2605;</span>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td>{{ movie.year_release }}</td>
+                    <td>{{ movie.metacritic_rating }}</td>
+                    <td>{{ movie.runtime }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">No movies found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById("searchInput").addEventListener("input", function() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("moviesTable");
+            tr = table.getElementsByClassName("movieRow");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0]; // Get the first column (Title)
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
