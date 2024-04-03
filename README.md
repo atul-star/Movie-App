@@ -5,7 +5,7 @@ Steps To Run the Project:
 3) python manage.py migrate
 4) python manage.py runserver
 
-To add To into Tables:
+To add data into Table:
 you can use django admin panel
 step to create super user
 1) python manage.py createsuperuser(username and password)
