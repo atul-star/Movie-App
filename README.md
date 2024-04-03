@@ -1,7 +1,7 @@
 This is simple django framework base application(Movie application)
 Steps To Run the Project:
 1) clone project
-2) setup virtualenv
+2) setup virtualenv (install requirement.txt file)
 3) python manage.py migrate
 4) python manage.py runserver
 
